@@ -446,12 +446,14 @@ class GarminConnectGearSensor(CoordinatorEntity, SensorEntity):
         for gear_stats_item in self.coordinator.data["gearStats"]:
             if gear_stats_item[Gear.UUID] == self._uuid:
                 return gear_stats_item
+        return None
 
     def _gear(self):
         """Get gear from garmin"""
         for gear_item in self.coordinator.data["gear"]:
             if gear_item[Gear.UUID] == self._uuid:
                 return gear_item
+        return None
 
     def _gear_defaults(self):
         """Get gear defaults"""

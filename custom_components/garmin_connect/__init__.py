@@ -112,6 +112,9 @@ class GarminConnectDataUpdateCoordinator(DataUpdateCoordinator):
         sleep_data = {}
         sleep_score = None
         sleep_time_seconds = None
+        deep_sleep_time_seconds = None
+        light_sleep_time_seconds = None
+        rem_sleep_time_seconds = None
         hrv_data = {}
         hrv_status = {"status": "unknown"}
         next_alarms = []
@@ -235,6 +238,14 @@ class GarminConnectDataUpdateCoordinator(DataUpdateCoordinator):
             _LOGGER.debug("Sleep time seconds data: %s", sleep_time_seconds)
         except KeyError:
             _LOGGER.debug("Sleep time seconds data is not available")
+        #Sleep breakdown in seconds
+        try:
+            deep_sleep_time_seconds = sleep_data["dailySleepDTO"]["deepSleepSeconds"]
+            light_sleep_time_seconds = sleep_data["dailySleepDTO"]["lightSleepSeconds"]
+            rem_sleep_time_seconds = sleep_data["dailySleepDTO"]["remSleepSeconds"]
+            _LOGGER.debug(" Deep Sleep time seconds data: %s", deep_sleep_time_seconds)
+        except KeyError:
+            _LOGGER.debug("deep Sleep time seconds data is not available")
 
         # HRV data
         try:
@@ -255,6 +266,9 @@ class GarminConnectDataUpdateCoordinator(DataUpdateCoordinator):
             "sleepScore": sleep_score,
             "sleepTimeSeconds": sleep_time_seconds,
             "hrvStatus": hrv_status,
+            "deepSleepTimeSeconds" : deep_sleep_time_seconds,
+            "lightSleepTimeSeconds" : light_sleep_time_seconds,
+            "remSleepTimeSeconds": rem_sleep_time_seconds,
         }
 
 
