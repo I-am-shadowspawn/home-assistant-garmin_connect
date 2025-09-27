@@ -117,6 +117,7 @@ class GarminConnectDataUpdateCoordinator(DataUpdateCoordinator):
         next_alarms = []
 
         today = datetime.now(ZoneInfo(self.time_zone)).date()
+        _LOGGER.debug("today date set as :%s", today)
 
         try:
             # User summary
